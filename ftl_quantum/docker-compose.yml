@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  quantum:
+    build: ./quantum/
+    container_name: quantum
+    image: quantum
+    environment:
+      - IBMQ_TOKEN=${IBMQ_TOKEN}
+    ports:
+      - "8888:8888"
