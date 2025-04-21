@@ -1,0 +1,5 @@
+BLACK	= "\x1b[0m"
+RED	= "\x1b[31m"
+CYAN	= "\x1b[36m"
+YELLOW	= "\x1b[33m"
+MAGENTA	= "\x1b[35m"

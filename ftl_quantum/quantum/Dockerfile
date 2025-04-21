@@ -11,10 +11,12 @@ RUN	apt-get update \
 
 RUN	pip install --upgrade pip
 RUN	pip install \
+		python-dotenv \
 		qiskit==2.0.0 \
-		matplotlib \
+		qiskit-ibm-runtime \
 		qiskit[visualization] \
 		qiskit-aer==0.17.0 \
+		matplotlib \
 		jupyter
 RUN	pip install --upgrade qiskit qiskit-aer
 
@@ -22,5 +24,4 @@ WORKDIR	/workspace
 
 COPY	. .
 
-# CMD ["tail", "-f", "/dev/null"]
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--allow-root", "--no-browser", "--NotebookApp.token=''"]

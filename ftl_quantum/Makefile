@@ -6,7 +6,7 @@
 #    By: yhwang <yhwang@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/19 01:22:16 by yhwang            #+#    #+#              #
-#    Updated: 2025/04/19 02:01:59 by yhwang           ###   ########.fr        #
+#    Updated: 2025/04/21 06:22:05 by yhwang           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ COMPOSE_FILE	= ./docker-compose.yml
 all: up
 
 up:
-	@docker-compose -f $(COMPOSE_FILE) up --build -d
+	@docker compose -f $(COMPOSE_FILE) up --build -d
 	@echo "$(YELLOW)Containers succesfully created and started$(RESET)"
 #	@docker attach quantum
 
@@ -42,12 +42,12 @@ list:
 
 logs:
 	@echo "$(BLUE)OUTPUTS OF CONTAINERS:$(RESET)"
-	@docker-compose -f $(COMPOSE_FILE) logs
+	@docker compose -f $(COMPOSE_FILE) logs
 
 stop:
 ifneq ($(shell docker ps -a | wc -l), 1)
 	@echo "$(BLUE)Stopping container..$(RESET)"
-	@docker-compose -f $(COMPOSE_FILE) stop -t1
+	@docker compose -f $(COMPOSE_FILE) stop -t1
 	@echo "$(YELLOW)Containers succesfully stopped$(RESET)"
 else
 	@echo "$(YELLOW)There is no container to stop$(RESET)"
@@ -56,7 +56,7 @@ endif
 restart:
 ifneq ($(shell docker ps -a | wc -l), 1)
 	@echo "$(BLUE)Restarting container..$(RESET)"
-	@docker-compose -f $(COMPOSE_FILE) restart
+	@docker compose -f $(COMPOSE_FILE) restart
 	@echo "$(YELLOW)Containers succesfully restarted$(RESET)"
 else
 	@echo "$(YELLOW)There is no container to restart$(RESET)"
@@ -64,7 +64,7 @@ endif
 
 fclean:
 	@echo "$(BLUE)Removing everything..$(RESET)"
-	@docker-compose -f $(COMPOSE_FILE) stop -t1
+	@docker compose -f $(COMPOSE_FILE) stop -t1
 	@echo "$(YELLOW)Containers succesfully stopped$(RESET)"
 
 ifneq ($(shell docker container ls -a | wc -l), 1)
