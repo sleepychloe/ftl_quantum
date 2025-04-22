@@ -4,6 +4,7 @@ Currently working on the project
 
 <details>
 <summary><b><ins>Create Account</ins></b></summary>
+<br>
 
 <img src="https://github.com/user-attachments/assets/6aa7fc26-529a-4611-8d9e-d5c283134390" width="600" height="600">
 
@@ -70,7 +71,8 @@ Currently working on the project
 
 
 <details>
-<summary><b><ins>Get API</ins></b></summary>
+<summary><b><ins>Get API(Channel: ibm_cloud)</ins></b></summary>
+<br>
 
 <img src="https://github.com/user-attachments/assets/3042a7f0-2d71-4b23-b73d-a6adef75cb15" width="600" height="600">
 
@@ -101,7 +103,8 @@ Currently working on the project
 
 
 <details>
-<summary><b><ins>Get Instance</ins></b></summary>
+<summary><b><ins>Get Instance(Channel: ibm_cloud)</ins></b></summary>
+<br>
 
 <img src="https://github.com/user-attachments/assets/84e09334-65c5-4188-878b-dabdee97aa5c" width="600" height="600">
 
@@ -132,7 +135,8 @@ Currently working on the project
 
 
 <details>
-<summary><b><ins>Channel: ibm_quantum(valid until 1 July 2025)</ins></b></summary>
+<summary><b><ins>Get API(Channel: ibm_quantum: valid until 1 July 2025)</ins></b></summary>
+<br>
 
 <img src="https://github.com/user-attachments/assets/abecb504-36c4-481a-bf80-70a48be87007" width="600" height="600">
 
