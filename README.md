@@ -147,3 +147,116 @@ Currently working on the project
 
 </details>
 <br>
+
+
+## Ex01
+
+### Simulator
+
+⋅ A classical(non-quantum) program that mimics how a quantum computer would behave.<br>
+It runs on a regular CPU(sometimes GPU) and emulates quantum behavior using algorithms.<br>
+<br>
+
+- Fast for small circuites(under 25 qubits)
+- Free and available locally
+- Good for development, testing, debugging
+- No queue or hardware noise
+
+- Doesn't reflect real quantum hardware limitations
+- Performance drops quickly with more qubits
+<br>
+
+### Real Quantum Computer
+
+⋅ Uses physical quantum bits(qubits) made from superconducting circuits, trapped ions, or other quantum technologies.<br>
+<br>
+
+- Runs on actual quantum hardware
+- Ideal for testing how algorithm handles quantum noise, decoherence, device errors
+- required for real-world quantum applications
+
+- Limited access
+- Queue times can be long
+<br>
+
+### IBM Quantum channels: ibm_quantum, ibm_cloud
+
+- ibm_quantum
+	- Legacy access through the original IBM Quantum Experience.
+	- Requires only a token.
+	- Now deprecated, will be retired July 1, 2025.
+- ibm_cloud
+	- Modern access through IBM Cloud.
+	- Requires a token and cloud instance CRN.
+	- Provides access to newer features like Qiskit Runtime, sessions, and fine-grained backend control.
+<br>
+
+### IBMQ.get_provider()
+
+⋅ Finding and connecting to a quantum computer or simulator on IBM's network.(old)<br>
+<br>
+
+- Old Qiskit system(pre-2023).
+- `IBMQ`: a global object that manages connections to IBM Quantum computers.
+- `IBMQ.get_provider`: gets access to provider(simulators or quantum devices).
+- Qiskit version < 0.39, part of `qiskit-ibmq-provider` package.
+
+```
+from qiskit import IBMQ
+
+IBMQ.enable_account(API_TOKEN)
+
+provider = IBMQ.get_provider(hub='ibm-q')
+backend = provider.get_backend('ibmq_quito')
+
+```
+<br>
+
+### QiskitRuntimeService()
+
+⋅ New way to Connecting to a connect dto device and runtime programs, faster and better.<br>
+<br>
+
+- Newer way(post-2023) to connect to IBM quantum devices.
+- `QiskitRuntimeService` manages access to both hardware and runtime programs.
+- Qiskit version 0.39+, part of `qiskit-ibm-runtime` package.
+
+```
+from qiskit_ibm_runtime import QiskitRuntimeService
+
+# ibm_quantum
+service = QiskitRuntimeService(
+    channel="ibm_quantum",
+    token=API_TOKEN
+)
+
+# ibm_cloud
+service = QiskitRuntimeService(
+    channel="ibm_cloud",
+    token=API_TOKEN,
+    instance=INSTANCE_CRN
+)
+
+backend = service.backend("ibmq_quito")
+
+```
+<br>
+
+### Simulators don't show up
+
+⋅ IBM has removed public access to most simulators on both channels.<br>
+<br>
+
+- on ibm_quantum, simulators were phased out and may no longer appear.
+- on ibm_cloud, simulator access is controlled by your cloud instance.
+<br>
+
+⋅ For development, use local simulators.<br>
+
+```
+from qiskit_aer import Aer
+
+simulator = Aer.get_backend("aer_simulator")
+
+```
+<br>
