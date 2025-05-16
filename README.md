@@ -250,3 +250,183 @@ simulator = Aer.get_backend("aer_simulator")
 
 ```
 <br>
+<br>
+
+## Ex02
+
+### Classical bit and Quantum bit
+
+- Classical bit
+	- It can be either 0 or 1.
+	- There is no in-between.
+
+- Quantum bit(qubit)
+	- It is not limited to 0 or 1, can be in a superposition of both.
+
+```
+|ψ⟩ = α|0⟩ + β|1⟩,
+The constraint: |α|² + |β|² = 1
+(comes from Born's rule: it ensures total probablity is 1)
+
+|0⟩: qubit is in the 0 state
+|1⟩: qubit is in the 1 state
+α, β: complex numbers called amplitudes.
+
+```
+- |0⟩ and |1⟩
+	- Basis vectors(column vectors) of 2d complex vector space called a Hilbert space.
+	- Any valid qubit state is a linear combination of them.
+<br>
+
+### Bra-Ket Formalism(Dirac natoation)
+
+- Ket: |ψ⟩
+	- A column vector.
+	- Example: 
+	```
+	      ┏   ┓        ┏   ┓
+	|0⟩ = ┃ 1 ┃  |1⟩ = ┃ 0 ┃
+	      ┃ 0 ┃,       ┃ 1 ┃
+	      ┗   ┛        ┗   ┛
+	```
+	- A general state:
+	```
+			     ┏   ┓     ┏   ┓   ┏   ┓
+	|ψ⟩ = α|0⟩ + β|1⟩ = α┃ 1 ┃ + β ┃ 0 ┃ = ┃ α ┃
+			     ┃ 0 ┃     ┃ 1 ┃   ┃ β ┃
+			     ┗   ┛     ┗   ┛   ┗   ┛
+	(|α|² + |β|² = 1)
+	```
+<br>
+
+- Bra: ⟨ψ| = (|ψ⟩)†
+	- The dual(transpose + complex conjugate) of a ket.
+	- A row vector.
+	- Useful for computing inner products.
+	- If:
+	```
+	      ┏   ┓		     ┏        ┓
+	|ψ⟩ = ┃ α ┃ → ⟨ψ| = (|ψ⟩)† = ┃ α*  β* ┃
+	      ┃ β ┃		     ┗        ┛
+	      ┗   ┛
+	(* means complex conjugate)
+	```
+<br>
+
+- Bra-Ket(inner product): ⟨ϕ|ψ⟩
+	- A complex number.
+	- Physically interpreted as the overlap between two states.
+	- If:
+	```
+	      ┏   ┓        ┏   ┓
+	|ϕ⟩ = ┃ a ┃  |ψ⟩ = ┃ x ┃
+	      ┃ b ┃,       ┃ y ┃
+	      ┗   ┛        ┗   ┛
+	```
+	- Then:
+	```
+		┏        ┓ ┏   ┓		     
+	⟨ϕ|ψ⟩ = ┃ a*  b* ┃⋅┃ x ┃ = a*x + b*y
+		┗        ┛ ┃ y ┃		     
+			   ┗   ┛
+	```
+	- Example:
+	```
+		┏    ┓† ┏   ┓   ┏      ┓ ┏   ┓
+	⟨0|0⟩ = ┃ 1* ┃ ⋅┃ 1 ┃ = ┃ 1  0 ┃⋅┃ 1 ┃ = 1
+		┃ 0* ┃  ┃ 0 ┃   ┗      ┛ ┃ 0 ┃
+		┗    ┛  ┗   ┛		 ┗   ┛
+	∴ the probability that |0⟩ is in state |0⟩ is 1.
+
+		┏    ┓† ┏   ┓   ┏      ┓ ┏   ┓
+	⟨0|1⟩ = ┃ 1* ┃ ⋅┃ 0 ┃ = ┃ 1  0 ┃⋅┃ 0 ┃ = 0
+		┃ 0* ┃  ┃ 1 ┃   ┗      ┛ ┃ 1 ┃
+		┗    ┛  ┗   ┛		 ┗   ┛
+	∴ the probability that |0⟩ is in state |1⟩ is 0,
+	  no overalp between |0⟩ and |1⟩.
+	```
+	- Inner product of superposition states:
+	```
+	Let:
+					   ┏   ┓
+	|ψ⟩ = (1/√(2))(|0⟩ + |1⟩)= (1/√(2))┃ 1 ┃
+					   ┃ 1 ┃
+					   ┗   ┛
+	Then:
+			 ┏      ┓	    ┏   ┓
+	⟨ψ|ψ⟩ = ((1/√(2))┃ 1  1 ┃)⋅((1/√(2))┃ 1 ┃) = 1
+			 ┗      ┛	    ┃ 1 ┃
+					    ┗   ┛
+	```
+<br>
+
+- Outer product: |ψ⟩⟨ψ|
+	- A matrix.
+	- Physically the matrix is a projector onto the state |ψ⟩.
+	- If you multiply any state |φ⟩ by |ψ⟩⟨ψ|, you project it onto |ψ⟩(in short, ∣ψ⟩⟨ψ∣∣ϕ⟩=(⟨ψ∣ϕ⟩)∣ψ⟩): it filters |φ⟩ through |ψ⟩ and returns vector along |ψ⟩.
+	- Example:
+	```
+	Let:
+					    ┏   ┓
+	∣ψ⟩ = (1/√(2))(|0⟩ + |1⟩) = (1/√(2))┃ 1 ┃
+					    ┃ 1 ┃
+					    ┗   ┛
+	Then the bra is:
+		      ┏    ┓†	       ┏      ┓
+	⟨ψ∣ = (1/√(2))┃ 1* ┃ = (1/√(2))┃ 1  1 ┃
+		      ┃ 1* ┃	       ┗      ┛
+		      ┗    ┛
+	So the outer product is:
+			  ┏   ┓		  ┏      ┓
+	|ψ⟩⟨ψ| = ((1/√(2))┃ 1 ┃)⊗((1/√(2))┃ 1  1 ┃)
+			  ┃ 1 ┃		  ┗      ┛
+			  ┗   ┛
+		       ┏   ┓ ┏      ┓	     ┏      ┓
+		= (1/2)┃ 1 ┃⊗┃ 1  1 ┃ = (1/2)┃ 1  1 ┃
+		       ┃ 1 ┃ ┗      ┛        ┃ 1  1 ┃
+		       ┗   ┛		     ┗      ┛
+	```
+	- In quantum computing, |0⟩⟨0|, |1⟩⟨1|, or |ψ⟩⟨ψ| appear in measurement operators, quantum state preparation, density matrices(for mixed states).
+	```
+	Projector for |0⟩:
+		 ┏   ┓ ┏      ┓	  ┏      ┓
+	∣0⟩⟨0∣ = ┃ 1 ┃⊗┃ 1  0 ┃ = ┃ 1  0 ┃
+		 ┃ 0 ┃ ┗      ┛	  ┃ 0  0 ┃
+		 ┗   ┛		  ┗      ┛
+	Projector for |1⟩:
+		 ┏   ┓ ┏      ┓	  ┏      ┓
+	∣1⟩⟨1∣ = ┃ 0 ┃⊗┃ 0  1 ┃ = ┃ 0  0 ┃
+		 ┃ 1 ┃ ┗      ┛	  ┃ 0  1 ┃
+		 ┗   ┛		  ┗      ┛
+	```
+
+### Projection: Measuring a quantum state
+
+- Projection:
+	- When we measure a quantum state, we don't just read its value, we project it onto a basis state like |0⟩ or |1⟩.
+	- The probability that the qubit is |0⟩ = |⟨0|ψ⟩|², which is a projection of the quantum state |ψ⟩ onto |0⟩.
+
+- Why projection?
+	- Quantum measurement collapses the state into one of the basis vectors(|0⟩ or |1⟩).
+	- Projection squared tells us how likely it is that the state lands on the basis vector.
+	- In linear algebra, projection is how much of one vector lies along another.
+
+- Example with code
+
+```
+qc = QuantumCircuit(1, 1)
+qc.h(0)
+qc.measure(0, 0)
+```
+
+The Hadamard gate gives:
+```
+|ψ⟩ = (1/√(2))(|0⟩ + |1⟩)
+```
+The probability of getting 0 on measurement P(0) is:
+```
+P(0) = |⟨0|ψ⟩|² = | ⟨0|((1/√(2))*(|0⟩ + |1⟩)) |² = | (1/√(2))*⟨0|0⟩ + (1/√(2))*⟨0|1⟩ |²
+     = | (1/√(2))*1 + (1/√(2))*0 |² = |(1/√(2))|² = 1/2
+```
+∴ the probability that |0⟩ in state |ψ⟩ is 1/2.
+<br>
