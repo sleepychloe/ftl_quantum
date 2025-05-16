@@ -266,7 +266,7 @@ simulator = Aer.get_backend("aer_simulator")
 ```
 |ψ⟩ = α|0⟩ + β|1⟩,
 The constraint: |α|² + |β|² = 1
-(comes from Born's rule: it ensures total probablity is 1)
+(normalization: it ensures total probablity is 1)
 
 |0⟩: qubit is in the 0 state
 |1⟩: qubit is in the 1 state
@@ -276,6 +276,38 @@ The constraint: |α|² + |β|² = 1
 - |0⟩ and |1⟩
 	- Basis vectors(column vectors) of 2d complex vector space called a Hilbert space.
 	- Any valid qubit state is a linear combination of them.
+<br>
+
+### Superposition
+
+- Superposition: the quantum generalization of being in multiple states at once.
+- In physics, it is rooted in linear combinations of eigenstates(like |0⟩ + |1⟩).
+- It does not mean it is in 0 or 1, it means that it has the potential to become either, and the amplitudes(α, β) determine how likely each outcome is. 
+- Superposition comes from The Hadamard Gate.
+<br>
+
+### Measurement
+
+- When qubit is measured, it collapses into either |0⟩ or |1⟩, with probablity P(0) = |α|², P(1) = |β|².
+- Superposition can be never directly observed, observer infers it by running the same experiment many times and analyzing the probablities.
+<br>
+
+### Hadamard Gate
+- Hadamard gate: A single-qubit quantum gate that puts a qubit into a superposition.
+- It is defiend by:
+```
+     1  ┏       ┓
+H = ————┃ 1   1 ┃
+    √(2)┃ 1  -1 ┃
+	┗       ┛
+```
+- When H is applied by |0⟩:
+```
+        1  ┏       ┓ ┏   ┓    1  ┏   ┓    1
+H|0⟩ = ————┃ 1   1 ┃⋅┃ 1 ┃ = ————┃ 1 ┃ = ————|0⟩ + |1⟩
+       √(2)┃ 1  -1 ┃ ┃ 0 ┃   √(2)┃ 1 ┃	 √(2)
+	   ┗       ┛ ┗   ┛	 ┗   ┛
+```
 <br>
 
 ### Bra-Ket Formalism(Dirac natoation)
@@ -348,15 +380,15 @@ The constraint: |α|² + |β|² = 1
 	- Inner product of superposition states:
 	```
 	Let:
-					   ┏   ┓
-	|ψ⟩ = (1/√(2))(|0⟩ + |1⟩)= (1/√(2))┃ 1 ┃
-					   ┃ 1 ┃
-					   ┗   ┛
+	       1		1  ┏   ┓
+	|ψ⟩ = ————(|0⟩ + |1⟩)= ————┃ 1 ┃
+	      √(2)	       √(2)┃ 1 ┃
+				   ┗   ┛
 	Then:
-			 ┏      ┓	    ┏   ┓
-	⟨ψ|ψ⟩ = ((1/√(2))┃ 1  1 ┃)⋅((1/√(2))┃ 1 ┃) = 1
-			 ┗      ┛	    ┃ 1 ┃
-					    ┗   ┛
+		  1  ┏      ┓	 1  ┏   ┓
+	⟨ψ|ψ⟩ = (————┃ 1  1 ┃)⋅(————┃ 1 ┃) = 1
+		 √(2)┗      ┛	√(2)┃ 1 ┃
+				    ┗   ┛
 	```
 <br>
 
@@ -367,24 +399,24 @@ The constraint: |α|² + |β|² = 1
 	- Example:
 	```
 	Let:
-					    ┏   ┓
-	∣ψ⟩ = (1/√(2))(|0⟩ + |1⟩) = (1/√(2))┃ 1 ┃
-					    ┃ 1 ┃
-					    ┗   ┛
+	       1		 1  ┏   ┓
+	∣ψ⟩ = ————(|0⟩ + |1⟩) = ————┃ 1 ┃
+	      √(2)		√(2)┃ 1 ┃
+				    ┗   ┛
 	Then the bra is:
-		      ┏    ┓†	       ┏      ┓
-	⟨ψ∣ = (1/√(2))┃ 1* ┃ = (1/√(2))┃ 1  1 ┃
-		      ┃ 1* ┃	       ┗      ┛
-		      ┗    ┛
+	       1  ┏    ┓†   1  ┏      ┓
+	⟨ψ∣ = ————┃ 1* ┃ = ————┃ 1  1 ┃
+	      √(2)┃ 1* ┃   √(2)┗      ┛
+		  ┗    ┛
 	So the outer product is:
-			  ┏   ┓		  ┏      ┓
-	|ψ⟩⟨ψ| = ((1/√(2))┃ 1 ┃)⊗((1/√(2))┃ 1  1 ┃)
-			  ┃ 1 ┃		  ┗      ┛
-			  ┗   ┛
-		       ┏   ┓ ┏      ┓	     ┏      ┓
-		= (1/2)┃ 1 ┃⊗┃ 1  1 ┃ = (1/2)┃ 1  1 ┃
-		       ┃ 1 ┃ ┗      ┛        ┃ 1  1 ┃
-		       ┗   ┛		     ┗      ┛
+		   1  ┏   ┓    1  ┏      ┓
+	|ψ⟩⟨ψ| = (————┃ 1 ┃)⊗(————┃ 1  1 ┃)
+		  √(2)┃ 1 ┃   √(2)┗      ┛
+		      ┗   ┛
+		  1┏   ┓ ┏      ┓   1┏      ┓
+		= —┃ 1 ┃⊗┃ 1  1 ┃ = —┃ 1  1 ┃
+		  2┃ 1 ┃ ┗      ┛   2┃ 1  1 ┃
+		   ┗   ┛	     ┗      ┛
 	```
 	- In quantum computing, |0⟩⟨0|, |1⟩⟨1|, or |ψ⟩⟨ψ| appear in measurement operators, quantum state preparation, density matrices(for mixed states).
 	```
@@ -399,6 +431,11 @@ The constraint: |α|² + |β|² = 1
 		 ┃ 1 ┃ ┗      ┛	  ┃ 0  1 ┃
 		 ┗   ┛		  ┗      ┛
 	```
+	- If a quantum state is |ψ⟩, the density matrix is:
+	```
+	ρ = ∣ψ⟩⟨ψ∣
+	```
+	- Because ρ contains all measurable information about a quantum state.
 
 ### Projection: Measuring a quantum state
 
@@ -421,12 +458,19 @@ qc.measure(0, 0)
 
 The Hadamard gate gives:
 ```
-|ψ⟩ = (1/√(2))(|0⟩ + |1⟩)
+       1
+|ψ⟩ = ————(|0⟩ + |1⟩)
+      √(2)
 ```
 The probability of getting 0 on measurement P(0) is:
 ```
-P(0) = |⟨0|ψ⟩|² = | ⟨0|((1/√(2))*(|0⟩ + |1⟩)) |² = | (1/√(2))*⟨0|0⟩ + (1/√(2))*⟨0|1⟩ |²
-     = | (1/√(2))*1 + (1/√(2))*0 |² = |(1/√(2))|² = 1/2
+			 1			 1	     1
+P(0) = |⟨0|ψ⟩|² = | ⟨0|(————(|0⟩ + |1⟩)) |² = | ————⟨0|0⟩ + ————⟨0|1⟩ |²
+			√(2)			√(2)	    √(2)
+	  1	   1		1	1
+     = | ————*1 + ————*0 |² = |————|² = — = 0.5
+         √(2)	  √(2)	       √(2)	2
 ```
-∴ the probability that |0⟩ in state |ψ⟩ is 1/2.
+∴ the probability that |0⟩ in state |ψ⟩ is 0.5
+Which means when you measure the qubit, you get 0 with 50% probability, 1 50% probability.
 <br>
