@@ -474,3 +474,4 @@ P(0) = |⟨0|ψ⟩|² = | ⟨0|(————(|0⟩ + |1⟩)) |² = | ———�
 ∴ the probability that |0⟩ in state |ψ⟩ is 0.5
 Which means when you measure the qubit, you get 0 with 50% probability, 1 50% probability.
 <br>
+
