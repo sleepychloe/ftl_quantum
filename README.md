@@ -310,7 +310,7 @@ H|0⟩ = ————┃ 1   1 ┃⋅┃ 1 ┃ = ————┃ 1 ┃ = ——�
 ```
 <br>
 
-### Bra-Ket Formalism(Dirac natoation)
+### Bra-Ket Formalism(Dirac notation)
 
 - Ket: |ψ⟩
 	- A column vector.
